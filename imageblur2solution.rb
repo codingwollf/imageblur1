@@ -19,11 +19,11 @@ class Image
   # building method to locate all of the 1s in the 2D array
   def coords
     blur_pixels = []
-    # nested loops for rows and columns
+    # blur_pixels is the array, and then we need to fill it
     @array.each_with_index do |row, row_int| # iterating over integers in arrays 
       row.each_with_index do |int, col_index| 
-        if int == 1
-          blur_pixels << [row_int, col_index] # << is pushing into the array from blur_pixels.each do
+        if int == 1 #1 is the number we are using as the culprit in our blur
+          blur_pixels << [row_int, col_index] # << is pushing into the blur_pixels array
         end
       end
     end
@@ -43,7 +43,7 @@ class Image
               @array[row_int][col_index -1] = 1 unless col_index == 0
               # right of 1
               @array[row_int][col_index +1] = 1 unless col_index >= @col_length-1
-              # aboe 1
+              # above 1
               @array[row_int -1][col_index] = 1 unless row_int == 0
               # below 1
               @array[row_int +1][col_index] = 1 unless row_int >= @row_length-1
