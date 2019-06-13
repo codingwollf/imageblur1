@@ -16,8 +16,6 @@ class Image
     end
   end
 
-  def distance
-
   # building method to locate all of the 1s in the 2D array
   def coords
     blur_pixels = []
@@ -34,11 +32,13 @@ class Image
 
 
   # building method to adulterate integers around 1s
-  def blur! #needs the !, is a bang, syntax is telling that is going to change the state of what we are operating on.
+  def blur!(distance = 1) #needs the !, is a bang, syntax is telling that is going to change the state of what we are operating on.
+    distance.times do #looping for distance
+
     blur_pixels = coords # accessing array from previous method
-      @array.each_with_index do |row, row_int|
-        row.each_with_index do |int, col_index|
-          blur_pixels.each do |row_int_coord, col_index_coord|
+     @array.each_with_index do |row, row_int|
+       row.each_with_index do |int, col_index|
+        blur_pixels.each do |row_int_coord, col_index_coord|
 
             if row_int == row_int_coord && col_index == col_index_coord
               # left of 1
@@ -53,24 +53,25 @@ class Image
           end
         end
       end
+    end
   end
 
 end
 
 #this is the original image
 image = Image.new([
+  [1, 0, 0, 0, 1],
   [0, 0, 0, 0, 0],
-  [0, 1, 0, 0, 0],
-  [0, 0, 0, 0, 1],
   [0, 0, 0, 0, 0],
-  [0, 0, 1, 0, 0],
   [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 1],
 ])
 
 puts "Original image: "
 image.output_image
 
 puts "Adulterated image: "
-image.blur!
+image.blur!(2) #manhattan distance, so we can put any number we like!
 image.output_image
 #now the blurred image is showing below the original image
